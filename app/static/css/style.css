@@ -1,0 +1,22 @@
+.phantom{
+    height: 0;
+}
+.collapse-menu{
+    float: right;
+    z-index: 2;
+    -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+}
+.main {
+    position: absolute;
+    z-index: -1;
+}
+
+.chart{
+    fill: #333;
+}
+
+.node:hover{
+    fill: #aaa;
+    stroke: #aaa;
+    stroke-width: 40px;
+}
