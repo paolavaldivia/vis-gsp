@@ -8,4 +8,4 @@ Visual Graph Signal Processing
 5. source env/bin/activate
 6. pip install -r requirements.txt
 7. python run.py
-8. go to http://localhost:5000/
+8. go to [http://localhost:5000/]
