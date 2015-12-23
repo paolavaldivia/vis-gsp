@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Visual GSP</title>
+  <link href="static/lib/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="static/lib/css/angular-collapse.css" rel="stylesheet" type="text/css">
+  <link href="static/css/style.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body ng-app="vgsp">
+
+<div class="navbar navbar-default">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="#">Visual SGP </a>
+  </div>
+</div>
+
+<div ng-include="'static/angulartemplates/menu.htm'"></div>
+
+
+<div class="container-fluid gsp-phantom">
+  <div class="gsp-main col-md-12" ng-controller="vgsp.vis.controller as main">
+
+    <div class="gsp-chart-wrapper col-md-3">
+      <div class="gsp-chart-title"> Signal </div>
+      <graph-chart class="col-md-12 gsp-chart"
+                   coordinated="main.coordinated"
+                   graph="main.graph"
+                   domain="main.signalDomain"
+                   color-scale="main.signalColorScale"
+                   gfun="main.signal"
+                   ng-if="main.graphHasLoaded && main.signalHasLoaded">
+      </graph-chart>
+    </div>
+    <div class="gsp-chart-wrapper col-md-3">
+      <div class="gsp-chart-title"> Processed </div>
+      <graph-chart class="col-md-12 gsp-chart"
+                   coordinated="main.coordinated"
+                   graph="main.graph"
+                   domain="main.signalDomain"
+                   color-scale="main.signalColorScale"
+                   gfun="main.signalProcessed"
+                   ng-if="main.graphHasLoaded && main.signalHasLoaded">
+      </graph-chart>
+    </div>
+
+  </div>
+</div>
+
+<!-- JS -->
+
+<script src="static/lib/js/jquery.min.js"></script>
+<script src="static/lib/js/angular.min.js"></script>
+<script src="static/lib/js/angular-resource.min.js"></script>
+<script src="static/lib/js/angular-animate.min.js"></script>
+<script src="static/lib/js/angular-collapse.js"></script>
+<script src="static/lib/js/bootstrap.min.js"></script>
+<script src="static/lib/js/d3.min.js"></script>
+
+<!-- CUSTOM -->
+
+<script src="static/js/app.js"></script>
+<script src="static/js/modules/vis/controllers.js"></script>
+<script src="static/js/modules/vis/services.js"></script>
+<script src="static/js/modules/vis/graphChart.js"></script>
+<script src="static/js/modules/vis/functionChart.js"></script>
+
+
+</body>
+</html>

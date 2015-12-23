@@ -1,0 +1,46 @@
+<div class="well well-sm gsp-collapse-menu" ng-controller="vgsp.menu.controller as menu">
+    <div  class="collapse in"  id="gspMenu" collapse-options="{ horizontal: 'right' }">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation"  class="active">
+                <a href="#smoothing" aria-controls="profile" role="tab" data-toggle="tab">
+                    Smoothing
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#filtering" aria-controls="filtering" role="tab" data-toggle="tab">
+                    Filtering
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="smoothing">
+                <form name="smoothForm" class="well-lg form-group">
+                    <label for="smooth_t">t:</label>
+                    <input type="number" step="0.1" class="form-control" id="smooth_t"
+                           ng-model="menu.smooth_t" required ng-pattern="[0-9]*\.[0-9]{1,4}"
+                           ng-change="menu.change(smoothForm.$valid)">
+                </form>
+                <div class="gsp-chart-wrapper">
+                    <div class="gsp-chart-title"> Filter function:
+                        <span ng-include="'static/angulartemplates/filterEquation.htm'"></span>
+                    </div>
+                    <function-chart class="gsp-chart"
+                                    xvalues="menu.xvalues"
+                                    yvalues="menu.yvalues">
+                    </function-chart>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="filtering"> ... </div>
+
+        </div>
+    </div>
+    <button class="btn btn-link "  data-toggle="collapse"
+            href="#gspMenu" aria-expanded="true" aria-controls="gspMenu"
+            ng-click="open=!open">
+        <div ng-show="open"> <span class="glyphicon glyphicon-menu-left"></span>  </div>
+        <div class="gsp-hide" ng-show="!open"> <span class="glyphicon glyphicon-menu-right"></span>  </div>
+    </button>
+</div>
