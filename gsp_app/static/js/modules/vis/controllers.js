@@ -71,10 +71,15 @@
     }
 
     function reloadSignalProcessed(value){
-      if (value)
-        $http.get('/getResult').then(function(response){
-          self.signalProcessed = response.data.data; //.forEach(function(d, i, arr){arr[i] = (Math.random() ); })
+      if (value) {
+        self.loading = true;
+        $http.get('/getResult').then(function (response) {
+          self.signalProcessed = response.data.data;
+        }).finally(function() {
+          // called no matter success or failure
+          self.loading = false;
         });
+      }
     }
 
 

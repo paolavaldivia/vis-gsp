@@ -43,6 +43,7 @@
                    color-scale="main.signalColorScale"
                    gfun="main.signalProcessed"
                    ng-if="main.graphHasLoaded && main.signalHasLoaded">
+        <div class="spinner" ng-show="main.loading"></div>
       </graph-chart>
     </div>
 
