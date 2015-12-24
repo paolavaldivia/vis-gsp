@@ -14,6 +14,6 @@ def getSmoothFilter(D, t):
     return h
 
 def smoothFunction(U, h, f):
-    H = np.dot(U, np.dot(np.diag(h), U.T))
+    H = np.dot(U, (h*U).T)
     f_s = np.dot(H, f.T)
     return f_s.T
