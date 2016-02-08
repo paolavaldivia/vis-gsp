@@ -3,13 +3,33 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
             <li role="presentation"  class="active">
-                <a href="#smoothing" aria-controls="profile" role="tab" data-toggle="tab">
-                    Smoothing
+                <a href="#smoothing" aria-controls="profile" role="tab" data-toggle="tab" ng-click="menu.changeSmoothFunction(true)">
+                    Distributed smoothing
                 </a>
             </li>
             <li role="presentation">
-                <a href="#filtering" aria-controls="filtering" role="tab" data-toggle="tab">
-                    Filtering
+                <a href="#filtering" aria-controls="profile" role="tab" data-toggle="tab"  ng-click="menu.changeFilterFunction(true)">
+                    Distributed regularization
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#enhancement" aria-controls="profile" role="tab" data-toggle="tab"  ng-click="menu.changeToEnhancement(true)">
+                    Enhancement
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#enhancement" aria-controls="profile" role="tab" data-toggle="tab"  ng-click="menu.changeToEnhancement(true)">
+                    Laplacian Filter (TODO)
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#mean" aria-controls="profile" role="tab" data-toggle="tab"  ng-click="menu.changeToMean(true)">
+                    Mean Filter
+                </a>
+            </li>
+            <li role="presentation">
+                <a href="#median" aria-controls="profile" role="tab" data-toggle="tab"  ng-click="menu.changeToMedian(true)">
+                    Median Filter
                 </a>
             </li>
         </ul>
@@ -21,10 +41,27 @@
                     <label for="smooth_t">t:</label>
                     <input type="number" step="0.1" class="form-control" id="smooth_t"
                            ng-model="menu.smooth_t"
-                           ng-change="menu.change(smoothForm.$valid)">
+                           ng-change="menu.changeSmoothFunction(smoothForm.$valid)">
                 </form>
                 <div class="gsp-chart-wrapper">
-                    <div class="gsp-chart-title"> Filter function:
+                    <div class="gsp-chart-title"> Smooth function:
+                        <span ng-include="'static/angulartemplates/smoothEquation.htm'"></span>
+                    </div>
+                    <function-chart class="gsp-chart"
+                                    xvalues="menu.xvalues"
+                                    yvalues="menu.yvalues">
+                    </function-chart>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="filtering">
+                <form name="filterForm" class="well-lg form-group">
+                    <label for="filter_t">t:</label>
+                    <input type="number" step="0.1" class="form-control" id="filter_t"
+                           ng-model="menu.filter_t"
+                           ng-change="menu.changeFilterFunction(filterForm.$valid)">
+                </form>
+                <div class="gsp-chart-wrapper">
+                    <div class="gsp-chart-title"> Regularization function:
                         <span ng-include="'static/angulartemplates/filterEquation.htm'"></span>
                     </div>
                     <function-chart class="gsp-chart"
@@ -33,7 +70,25 @@
                     </function-chart>
                 </div>
             </div>
-            <div role="tabpanel" class="tab-pane" id="filtering"> ... </div>
+
+            <div role="tabpanel" class="tab-pane" id="enhancement">
+                <div class="gsp-chart-space"></div>
+                <div class="gsp-chart-wrapper">
+                    <div class="gsp-chart-title"> Enhancement function:
+                        <span ng-include="'static/angulartemplates/enhancementEquation.htm'"></span>
+                    </div>
+                    <function-chart class="gsp-chart"
+                                    xvalues="menu.xvalues"
+                                    yvalues="menu.yvalues">
+                    </function-chart>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="mean">
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="median">
+            </div>
 
         </div>
     </div>

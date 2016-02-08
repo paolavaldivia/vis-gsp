@@ -20,21 +20,62 @@
   function menuController($rootScope,
                           $http) {
     var self = this;
+
+    // distributed smoothing
     self.smooth_t = 1.0;
-    updateFilter(true);
+    self.changeSmoothFunction = updateSmoothFunction;
+    updateSmoothFunction(true);
+    // distributed filtering
 
-    self.change = updateFilter;
+    self.filter_t = 1.0;
+    self.changeFilterFunction = updateFilterFunction;
 
-    function updateFilter(valid) {
+    self.changeToEnhancement = updateEnhancementFunction;
+    self.changeToMedian = updateMedianFunction;
+    self.changeToMean = updateMeanFunction;
+
+
+    function updateSmoothFunction(valid) {
       if (valid && self.smooth_t>0) {
         var value = self.smooth_t.toFixed(4);
         $http.get('/smooth/' + value).then(function (response) {
-          console.log(response.data);
           self.xvalues = response.data.xvalues;
           self.yvalues = response.data.yvalues;
-          $rootScope.smooth_t = self.smooth_t;
+          $rootScope.functionChanged = 'smooth_' + value;
         });
       }
+    }
+
+    function updateFilterFunction(valid) {
+      if (valid && self.filter_t>0) {
+        var value = self.filter_t.toFixed(4);
+        $http.get('/filter/' + value).then(function (response) {
+          self.xvalues = response.data.xvalues;
+          self.yvalues = response.data.yvalues;
+          $rootScope.functionChanged = 'filter' + value;
+        });
+      }
+    }
+
+
+    function updateEnhancementFunction() {
+      $http.get('/enhancement').then(function (response) {
+        self.xvalues = response.data.xvalues;
+        self.yvalues = response.data.yvalues;
+        $rootScope.functionChanged =  'enhancement';
+      });
+    }
+
+    function updateMeanFunction() {
+      $http.get('/mean').then(function (response) {
+        $rootScope.functionChanged =  'mean';
+      });
+    }
+
+    function updateMedianFunction() {
+      $http.get('/median').then(function (response) {
+        $rootScope.functionChanged =  'median';
+      });
     }
 
   }
@@ -55,7 +96,7 @@
     self.coordinated = { selected: 1, tr : [0, 0], sc: 1, selectedTime: 1};
 
     loadData(self);
-    $rootScope.$watch('smooth_t', reloadSignalProcessed);
+    $rootScope.$watch('functionChanged', reloadSignalProcessed);
 
     function loadData(ctr) {
       dataService_graph(ctr.dataDir + ctr.graphFile ).then(function (graph) {
@@ -74,6 +115,7 @@
       if (value) {
         self.loading = true;
         $http.get('/getResult').then(function (response) {
+          console.log("fue");
           self.signalProcessed = response.data.data;
         }).finally(function() {
           // called no matter success or failure

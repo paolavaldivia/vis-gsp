@@ -19,36 +19,9 @@
 
 <div ng-include="'static/angulartemplates/menu.htm'"></div>
 
+<div ng-include="'static/angulartemplates/main.htm'"></div>
 
-<div class="container-fluid gsp-phantom">
-  <div class="gsp-main col-md-12" ng-controller="vgsp.vis.controller as main">
 
-    <div class="gsp-chart-wrapper col-md-3">
-      <div class="gsp-chart-title"> Signal </div>
-      <graph-chart class="col-md-12 gsp-chart"
-                   coordinated="main.coordinated"
-                   graph="main.graph"
-                   domain="main.signalDomain"
-                   color-scale="main.signalColorScale"
-                   gfun="main.signal"
-                   ng-if="main.graphHasLoaded && main.signalHasLoaded">
-      </graph-chart>
-    </div>
-    <div class="gsp-chart-wrapper col-md-3">
-      <div class="gsp-chart-title"> Processed </div>
-      <graph-chart class="col-md-12 gsp-chart"
-                   coordinated="main.coordinated"
-                   graph="main.graph"
-                   domain="main.signalDomain"
-                   color-scale="main.signalColorScale"
-                   gfun="main.signalProcessed"
-                   ng-if="main.graphHasLoaded && main.signalHasLoaded">
-        <div class="spinner" ng-show="main.loading"></div>
-      </graph-chart>
-    </div>
-
-  </div>
-</div>
 
 <!-- JS -->
 

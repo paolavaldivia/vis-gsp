@@ -44,12 +44,39 @@ def loadTestFunction():
 
 
 @app.route("/smooth/<float:t>", methods=['GET'])
-def updateFilter(t=0.5):
+def updateSmooth(t=0.5):
     app.t = t;
     app.filter = gsp_app.getSmoothFilter(app.D, app.t)
+    app.spectral = True
+    return gsp_app.dumpFilter(app.D, app.filter)
+
+@app.route("/filter/<float:t>", methods=['GET'])
+def updateFilter(t=0.5):
+    app.t = t;
+    app.filter = gsp_app.getFilter(app.D, app.t)
+    app.spectral = True
+    return gsp_app.dumpFilter(app.D, app.filter)
+
+
+@app.route("/mean", methods=['GET'])
+def mean():
+    app.filtered = gsp_app.meanFilter(app.G, app.fun)
+    app.spectral = False
+    return 'mean'
+
+@app.route("/median", methods=['GET'])
+def median():
+    app.filtered = gsp_app.medianFilter(app.G, app.fun)
+    app.spectral = False
+    return 'median'
+
+@app.route("/enhancement", methods=['GET'])
+def updateEnhancement():
+    app.filter = gsp_app.getEnhancement(app.D)
     return gsp_app.dumpFilter(app.D, app.filter)
 
 @app.route("/getResult", methods=['GET'])
 def getResult():
-    smoothed = gsp_app.smoothFunction(app.U, app.filter, app.fun)
-    return gsp_app.dumpFunGraph(smoothed)
+    if (app.spectral):
+        app.filtered = gsp_app.filterFunction(app.U, app.filter, app.fun)
+    return gsp_app.dumpFunGraph(app.filtered)
