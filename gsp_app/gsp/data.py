@@ -22,7 +22,7 @@ def loadGraphEig(fileName):
 
 def dumpGraph(G, xy):
     return json.dumps({"nodes": [{"x": xy[i][0], "y": xy[i][1]} for i in range(xy.shape[0]) ],
-                       "links": [{"source": l[0], "target": l[1]} for l in G.edges_iter() ]})
+                       "links": [{"source": l[0], "target": l[1]} for l in G.edges() ]})
 
 def randFunGraph():
     fp = rand(1,1200)
